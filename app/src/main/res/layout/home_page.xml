@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
 
 
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFEDFA">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#FFEDFA">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -26,10 +28,10 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="#EC7FA9"></androidx.appcompat.widget.Toolbar>
+                android:background="#BE5985" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/apkname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -38,7 +40,29 @@
                 android:textColor="#FFEDFA"
                 android:textColorLink="#AD4343"
                 android:textSize="24sp" />
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <TextView
+            android:id="@+id/hello"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Hello!"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:text="Rakshita Malakar"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -50,8 +74,16 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="match_parent"
             android:layout_gravity="bottom">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="330dp"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -63,7 +95,7 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <ImageButton
-                    android:id="@+id/imageButton"
+                    android:id="@+id/menuButton"
                     android:layout_width="0dp"
                     android:layout_height="56dp"
                     android:layout_gravity="center"
@@ -76,7 +108,7 @@
                     app:srcCompat="@drawable/home" />
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/calenderButton"
                     android:layout_width="0dp"
                     android:layout_height="56dp"
                     android:layout_gravity="center"
@@ -89,7 +121,7 @@
                     app:srcCompat="@drawable/calender" />
 
                 <ImageButton
-                    android:id="@+id/imageButton3"
+                    android:id="@+id/addbutton"
                     android:layout_width="0dp"
                     android:layout_height="56dp"
                     android:layout_gravity="center"
@@ -102,7 +134,7 @@
                     app:srcCompat="@drawable/add" />
 
                 <ImageButton
-                    android:id="@+id/imageButton4"
+                    android:id="@+id/trackbutton"
                     android:layout_width="0dp"
                     android:layout_height="56dp"
                     android:layout_gravity="center"
@@ -115,7 +147,7 @@
                     app:srcCompat="@drawable/completion" />
 
                 <ImageButton
-                    android:id="@+id/imageButton5"
+                    android:id="@+id/settingbutton"
                     android:layout_width="0dp"
                     android:layout_height="56dp"
                     android:layout_gravity="center"

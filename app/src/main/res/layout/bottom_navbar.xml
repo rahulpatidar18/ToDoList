@@ -1,0 +1,77 @@
+<LinearLayout android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:background="#FFEDFA"
+    android:orientation="horizontal"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageButton
+        android:id="@+id/menuButton"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:background="#FFEDFA"
+        android:contentDescription="homepage"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/home" />
+
+    <ImageButton
+        android:id="@+id/calenderButton"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:background="#FFEDFA"
+        android:contentDescription="calender"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/calender" />
+
+    <ImageButton
+        android:id="@+id/addbutton"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:background="#FFEDFA"
+        android:contentDescription="add"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/add" />
+
+    <ImageButton
+        android:id="@+id/trackbutton"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:background="#FFEDFA"
+        android:contentDescription="completion"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/completion" />
+
+    <ImageButton
+        android:id="@+id/settingbutton"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:background="#FFEDFA"
+        android:baselineAligned="false"
+        android:contentDescription="setting"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/setting" />
+</LinearLayout>

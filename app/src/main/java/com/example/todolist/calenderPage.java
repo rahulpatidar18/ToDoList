@@ -7,44 +7,17 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-public class homepage extends AppCompatActivity {
-
-    RecyclerView recyclerView;
-
-    ImageView home, calender, add, track, setting;
-    ImageView selectedIcon = null;
-
+public class calenderPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_page);
-
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
-        task[] tasks = {
-                new task(1, "Buy groceries for dinner", "Shopping"),
-                new task(2, "Finish Android app layout", "Work"),
-                new task(3, "Call electrician to fix lights", "Housework"),
-                new task(4, "Submit college assignment", "Education"),
-                new task(5, "Plan weekend trip with friends", "Leisure"),
-                new task(6, "Book dentist appointment", "Health"),
-                new task(7, "Pay electricity bill online", "Finance"),
-                new task(8, "Read 20 pages of a novel", "Personal Growth"),
-                new task(9, "Practice guitar for 30 minutes", "Hobby"),
-                new task(10, "Update resume and LinkedIn", "Career")
-        };
-        CustomAdapter adapter = new CustomAdapter(tasks);
-        recyclerView.setAdapter(adapter);
-        setupBottomNavbar("home");
-
-
+        setContentView(R.layout.setting_layout); // auto-created layout
+        setupBottomNavbar("calendar");
     }
 
+    //for click listener on bottom navbar
 
     private void setupBottomNavbar(String currentPage) {
         ImageView home = findViewById(R.id.menuButton);
@@ -83,27 +56,22 @@ public class homepage extends AppCompatActivity {
         home.setOnClickListener(v -> {
             if (!currentPage.equals("home")) {
                 startActivity(new Intent(this, homepage.class));
-                loadFragment(new HomeFragment());
                 finish();
             }
         });
 
         calendar.setOnClickListener(v -> {
-
             if (!currentPage.equals("calendar")) {
                 startActivity(new Intent(this, calenderPage.class));
-
+                loadFragment(new CalendarFragment());
                 finish();
             }
         });
 
         add.setOnClickListener(v -> {
-
             if (!currentPage.equals("add")) {
                 startActivity(new Intent(this, addPage.class));
-
                 finish();
-
             }
         });
 
@@ -127,4 +95,6 @@ public class homepage extends AppCompatActivity {
                 .replace(R.id.fragment_container, fragment)
                 .commit();
     }
+
+
 }

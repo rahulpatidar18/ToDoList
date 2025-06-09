@@ -1,14 +1,23 @@
 package com.example.todolist;
 
+import static android.widget.Toast.*;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
 
 public class homepage extends AppCompatActivity {
 
@@ -26,22 +35,58 @@ public class homepage extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        task[] tasks = {
-                new task(1, "Buy groceries for dinner", "Shopping"),
-                new task(2, "Finish Android app layout", "Work"),
-                new task(3, "Call electrician to fix lights", "Housework"),
-                new task(4, "Submit college assignment", "Education"),
-                new task(5, "Plan weekend trip with friends", "Leisure"),
-                new task(6, "Book dentist appointment", "Health"),
-                new task(7, "Pay electricity bill online", "Finance"),
-                new task(8, "Read 20 pages of a novel", "Personal Growth"),
-                new task(9, "Practice guitar for 30 minutes", "Hobby"),
-                new task(10, "Update resume and LinkedIn", "Career")
-        };
-        CustomAdapter adapter = new CustomAdapter(tasks);
+        TaskDatabase db = TaskDatabase.getInstance(this);
+        List<task> taskList = db.taskDao().getAllTasks();
+
+        CustomAdapter adapter = new CustomAdapter(taskList);
         recyclerView.setAdapter(adapter);
         setupBottomNavbar("home");
 
+        //no task available
+        TextView emptyView = findViewById(R.id.emptyView);
+
+        if (taskList.isEmpty()) {
+            emptyView.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        } else {
+            emptyView.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
+
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView,
+                                  @NonNull RecyclerView.ViewHolder viewHolder,
+                                  @NonNull RecyclerView.ViewHolder target) {
+                return false; // Not used for drag-and-drop
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+
+
+                task taskToDelete = taskList.get(position);
+
+                TaskDatabase db = TaskDatabase.getInstance(homepage.this);
+                db.taskDao().delete(taskToDelete);
+
+                // Remove from list & notify adapter
+                taskList.remove(position);
+                adapter.notifyItemRemoved(position);
+                makeText(homepage.this,getString(R.string.task_deleted), LENGTH_SHORT).show();
+                if (taskList.isEmpty()) {
+                    emptyView.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                }
+
+            }
+        };
+
+
+
+
+        new ItemTouchHelper(simpleCallback).attachToRecyclerView(recyclerView);
 
     }
 

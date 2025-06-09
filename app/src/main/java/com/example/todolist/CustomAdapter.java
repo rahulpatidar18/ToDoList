@@ -5,12 +5,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
 
-    task[] localDataSet;
+    List<task> localDataSet;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView detail;
@@ -28,7 +29,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         }
     }
 
-    public CustomAdapter(task[] dataSet) {
+    public CustomAdapter(List<task> dataSet) {
         this.localDataSet = dataSet;
     }
 
@@ -41,11 +42,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bind(localDataSet[position]);
+        holder.bind(localDataSet.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return localDataSet.length;
+        return localDataSet.size();
     }
 }

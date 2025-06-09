@@ -1,13 +1,22 @@
 package com.example.todolist;
 
-public class task {
-    public int id;
-    public String detail;
-    public String task_name;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-    public task(int id, String detail, String task_name) {
-        this.id = id;
-        this.detail = detail;
+@Entity(tableName = "tasks")
+public class task {
+    @PrimaryKey(autoGenerate = true)
+    public int id;
+
+    public String task_name;
+    public String detail;
+    public boolean isCompleted;
+
+    public task() {}
+
+    public task(String task_name, String detail, boolean isCompleted) {
         this.task_name = task_name;
+        this.detail = detail;
+        this.isCompleted = isCompleted;
     }
 }

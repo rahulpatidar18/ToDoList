@@ -32,6 +32,7 @@ android {
     buildToolsVersion = "35.0.0"
 }
 
+
 dependencies {
 
     implementation(libs.appcompat)
@@ -39,7 +40,11 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.navigation.runtime.android)
+    implementation(libs.room.common.jvm)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+
+
 }

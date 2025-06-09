@@ -1,9 +1,13 @@
 package com.example.todolist;
 
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -12,7 +16,30 @@ public class addPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_layout); // auto-created layout
+        setContentView(R.layout.add_layout);
+
+        EditText taskNameInput = findViewById(R.id.taskNameInput);
+        EditText taskDetailInput = findViewById(R.id.taskDetailInput);
+        Button submitButton = findViewById(R.id.submitTaskButton);
+
+        submitButton.setOnClickListener(v -> {
+            String name = taskNameInput.getText().toString().trim();
+            String detail = taskDetailInput.getText().toString().trim();
+
+            if (!name.isEmpty() && !detail.isEmpty()) {
+                task newTask = new task(name, detail, false);
+                TaskDatabase db = TaskDatabase.getInstance(this);
+                db.taskDao().insert(newTask);
+                Toast.makeText(this, "Task saved!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(addPage.this, homepage.class);
+                startActivity(intent);
+                finish(); // finish AddPage
+
+
+            } else {
+                Toast.makeText(this, "Please enter both fields", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         setupBottomNavbar("add");
     }

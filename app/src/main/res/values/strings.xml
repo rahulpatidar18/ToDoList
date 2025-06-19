@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">ToDoList</string>
     <string name="task_deleted">Task deleted</string>
+    <string name="todolist">ToDoList</string>
+    <string name="add_new_task">Add New Task</string>
+    <string name="task_name">Task Name</string>
+    <string name="task_description">Task Description</string>
+    <string name="submit">Submit</string>
+    <string name="today_s_task">Today\'s Task</string>
+    <string name="no_tasks_available">No tasks available</string>
+    <string name="homepage">homepage</string>
+    <string name="calender">calender</string>
+    <string name="add">add</string>
+    <string name="completion">completion</string>
+    <string name="setting">setting</string>
 </resources>

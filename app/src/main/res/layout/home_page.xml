@@ -1,80 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
 
 
     android:id="@+id/home_page"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFEDFA">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFEDFA">
+        android:background="#512B81">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
+        <include
+            layout="@layout/toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-
-            app:toolbarId="@+id/toolbar">
-
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="#BE5985" />
-
-            <TextView
-                android:id="@+id/apkname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="15dp"
-                android:text="ToDoList"
-                android:textColor="#FFEDFA"
-                android:textColorLink="#AD4343"
-                android:textSize="24sp" />
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-        <TextView
-            android:id="@+id/hello"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:text="Hello!"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            android:text="Rahul Patidar"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content" />
     </com.google.android.material.appbar.AppBarLayout>
+
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
 
+        android:background="#F3F1F6"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -86,9 +43,13 @@
                 android:id="@+id/Today"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="64dp"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent">
 
                 <TextView
@@ -99,14 +60,15 @@
                     android:layout_weight="1"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:text=" Today's  Task"
+                    android:text="@string/today_s_task"
+                    android:textColor="#512B81"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
+                    android:id="@+id/taskview"
                     android:layout_width="match_parent"
-                    android:layout_height="370dp"
+                    android:layout_height="366dp"
                     app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -116,95 +78,24 @@
                     android:id="@+id/emptyView"
                     android:layout_width="match_parent"
                     android:layout_height="370dp"
-                    android:text="No tasks available"
                     android:gravity="center"
-                    android:textSize="18sp"
-                    android:visibility="gone"
+                    android:padding="16dp"
+                    android:text="@string/no_tasks_available"
                     android:textColor="@color/black"
-                    android:padding="16dp" />
+                    android:textSize="18sp"
+                    android:visibility="gone" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="#FFEDFA"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <ImageButton
-                    android:id="@+id/menuButton"
-                    android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="#FFEDFA"
-                    android:contentDescription="homepage"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="16dp"
-                    android:scaleType="centerInside"
-                    app:srcCompat="@drawable/home" />
-
-                <ImageButton
-                    android:id="@+id/calenderButton"
-                    android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="#FFEDFA"
-                    android:contentDescription="calender"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="16dp"
-                    android:scaleType="centerInside"
-                    app:srcCompat="@drawable/calender" />
-
-                <ImageButton
-                    android:id="@+id/addbutton"
-                    android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="#FFEDFA"
-                    android:contentDescription="add"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp"
-                    android:scaleType="centerInside"
-                    app:srcCompat="@drawable/add" />
-
-                <ImageButton
-                    android:id="@+id/trackbutton"
-                    android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="#FFEDFA"
-                    android:contentDescription="completion"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="16dp"
-                    android:scaleType="centerInside"
-                    app:srcCompat="@drawable/completion" />
-
-                <ImageButton
-                    android:id="@+id/settingbutton"
-                    android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="#FFEDFA"
-                    android:baselineAligned="false"
-                    android:contentDescription="setting"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="16dp"
-                    android:scaleType="centerInside"
-                    app:srcCompat="@drawable/setting" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <include
+        layout="@layout/bottom_navbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

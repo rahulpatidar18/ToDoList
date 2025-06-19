@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="Add New Task"
+            android:text="@string/add_new_task"
             android:textColor="#000000"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -39,32 +39,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:autofillHints=""
             android:background="@drawable/edittext_bg"
-            android:hint="Task Name"
+            android:hint="@string/task_name"
+            android:inputType=""
             android:padding="12dp"
             android:textColor="#000000"
-            android:textColorHint="#AAAAAA" />
+            android:textColorHint="#AAAAAA"
+            tools:ignore="TextContrastCheck" />
 
         <EditText
             android:id="@+id/taskDetailInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:autofillHints=""
             android:background="@drawable/edittext_bg"
-            android:hint="Task Description"
+            android:hint="@string/task_description"
+            android:inputType=""
             android:minLines="3"
             android:padding="12dp"
             android:textColor="#000000"
-            android:textColorHint="#AAAAAA" />
+            android:textColorHint="#AAAAAA"
+            tools:ignore="TextContrastCheck" />
 
         <Button
             android:id="@+id/submitTaskButton"
-            android:layout_width="match_parent"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
             android:layout_marginTop="20dp"
             android:backgroundTint="#3333FF"
             android:padding="12dp"
-            android:text="Submit"
+            android:text="@string/submit"
             android:textColor="#FFFFFF" />
     </LinearLayout>
 

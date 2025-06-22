@@ -2,38 +2,47 @@ package com.example.todolist;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 public class calenderPage extends AppCompatActivity {
+
+    ImageView home, calendar, add, track, setting;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.setting_layout); // auto-created layout
+        setContentView(R.layout.setting_layout);
+
         setupBottomNavbar("calendar");
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Intent intent = new Intent(calenderPage.this, homepage.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+                finish();
+            }
+        });
     }
 
-    //for click listener on bottom navbar
-
     private void setupBottomNavbar(String currentPage) {
-        ImageView home = findViewById(R.id.menuButton);
-        ImageView calendar = findViewById(R.id.calenderButton);
-        ImageView add = findViewById(R.id.addbutton);
-        ImageView track = findViewById(R.id.trackbutton);
-        ImageView setting = findViewById(R.id.settingbutton);
+        home = findViewById(R.id.menuButton);
+        calendar = findViewById(R.id.calenderButton);
+        add = findViewById(R.id.addbutton);
+        track = findViewById(R.id.trackbutton);
+        setting = findViewById(R.id.settingbutton);
 
-        // Reset all to default icons
         home.setImageResource(R.drawable.home);
         calendar.setImageResource(R.drawable.calender);
         add.setImageResource(R.drawable.add);
         track.setImageResource(R.drawable.completion);
         setting.setImageResource(R.drawable.setting);
 
-        // Highlight current icon
         switch (currentPage) {
             case "home":
                 home.setImageResource(R.drawable.home_filled);
@@ -52,49 +61,43 @@ public class calenderPage extends AppCompatActivity {
                 break;
         }
 
-
         home.setOnClickListener(v -> {
             if (!currentPage.equals("home")) {
-                startActivity(new Intent(this, homepage.class));
-                finish();
+                Intent intent = new Intent(this, homepage.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
             }
         });
 
         calendar.setOnClickListener(v -> {
-            if (!currentPage.equals("calendar")) {
-                startActivity(new Intent(this, calenderPage.class));
-                loadFragment(new CalendarFragment());
-                finish();
-            }
         });
 
         add.setOnClickListener(v -> {
             if (!currentPage.equals("add")) {
-                startActivity(new Intent(this, addPage.class));
-                finish();
+                Intent intent = new Intent(this, addPage.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
             }
         });
 
         track.setOnClickListener(v -> {
             if (!currentPage.equals("track")) {
-                startActivity(new Intent(this, trackPage.class));
-                finish();
+                Intent intent = new Intent(this, trackPage.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
             }
         });
 
         setting.setOnClickListener(v -> {
             if (!currentPage.equals("setting")) {
-                startActivity(new Intent(this, SettingPage.class));
-                finish();
+                Intent intent = new Intent(this, SettingPage.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
             }
         });
     }
-    private void loadFragment(Fragment fragment) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .commit();
-    }
-
-
 }

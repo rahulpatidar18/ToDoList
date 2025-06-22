@@ -5,76 +5,12 @@
     android:id="@+id/add_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFEDFA">
+    android:background="#F3F1F6">
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        tools:ignore="MissingConstraints" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="65dp"
-        android:layout_marginBottom="55dp"
-        android:orientation="vertical"
-        android:padding="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_container"
-        tools:ignore="MissingConstraints">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:text="@string/add_new_task"
-            android:textColor="#000000"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/taskNameInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:autofillHints=""
-            android:background="@drawable/edittext_bg"
-            android:hint="@string/task_name"
-            android:inputType=""
-            android:padding="12dp"
-            android:textColor="#000000"
-            android:textColorHint="#AAAAAA"
-            tools:ignore="TextContrastCheck" />
-
-        <EditText
-            android:id="@+id/taskDetailInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:autofillHints=""
-            android:background="@drawable/edittext_bg"
-            android:hint="@string/task_description"
-            android:inputType=""
-            android:minLines="3"
-            android:padding="12dp"
-            android:textColor="#000000"
-            android:textColorHint="#AAAAAA"
-            tools:ignore="TextContrastCheck" />
-
-        <Button
-            android:id="@+id/submitTaskButton"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="#3333FF"
-            android:padding="12dp"
-            android:text="@string/submit"
-            android:textColor="#FFFFFF" />
-    </LinearLayout>
+    <include layout="@layout/add_fragment" />
 
 
-    <include layout="@layout/layout_common" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/layout_common" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,6 +26,8 @@
         <activity android:name=".addPage"/>
         <activity android:name=".trackPage"/>
         <activity android:name=".SettingPage"/>
+        <activity android:name=".CategoryTaskActivity" />
+
 
     </application>
 

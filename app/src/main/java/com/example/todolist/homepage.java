@@ -1,16 +1,15 @@
 package com.example.todolist;
 
-import static android.widget.Toast.*;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,9 +19,21 @@ import java.util.List;
 public class homepage extends AppCompatActivity {
 
     RecyclerView recyclerView;
+    RecyclerView categoryView;
+    CheckBox checkBox;
+    TextView emptyView;
+    List<task> taskList;
+    CustomAdapter taskAdapter;
+
+    Category[] categoryList = new Category[]{
+            new Category("Work"),
+            new Category("Study"),
+            new Category("Personal"),
+            new Category("Fitness"),
+            new Category("Shopping")
+    };
 
     ImageView home, calender, add, track, setting;
-    ImageView selectedIcon = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,18 +41,42 @@ public class homepage extends AppCompatActivity {
         setContentView(R.layout.home_page);
 
         recyclerView = findViewById(R.id.taskview);
+        categoryView = findViewById(R.id.Category_View);
+        emptyView = findViewById(R.id.emptyView);
+        checkBox = findViewById(R.id.checkBox);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        categoryView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
+        CategoryAdapter adapter = new CategoryAdapter(categoryList, category -> {
+            Intent intent = new Intent(homepage.this, CategoryTaskActivity.class);
+            intent.putExtra("category_name", category.getCategoryName());
+            startActivity(intent);
+        });
+        categoryView.setAdapter(adapter);
 
-        TaskDatabase db = TaskDatabase.getInstance(this);
-        List<task> taskList = db.taskDao().getAllTasks();
-
-        CustomAdapter adapter = new CustomAdapter(taskList);
-        recyclerView.setAdapter(adapter);
         setupBottomNavbar("home");
 
-        //no task available
-        TextView emptyView = findViewById(R.id.emptyView);
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finishAffinity();
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        reloadTasks();
+    }
+
+    private void reloadTasks() {
+        TaskDatabase db = TaskDatabase.getInstance(this);
+        taskList = db.taskDao().getAllTasks();
+
+        taskAdapter = new CustomAdapter(taskList);
+        recyclerView.setAdapter(taskAdapter);
 
         if (taskList.isEmpty()) {
             emptyView.setVisibility(View.VISIBLE);
@@ -56,60 +91,46 @@ public class homepage extends AppCompatActivity {
             public boolean onMove(@NonNull RecyclerView recyclerView,
                                   @NonNull RecyclerView.ViewHolder viewHolder,
                                   @NonNull RecyclerView.ViewHolder target) {
-                return false; // Not used for drag-and-drop
+                return false;
             }
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
-
-
                 task taskToDelete = taskList.get(position);
-
-                TaskDatabase db = TaskDatabase.getInstance(homepage.this);
                 db.taskDao().delete(taskToDelete);
-
-                // Remove from list & notify adapter
                 taskList.remove(position);
-                adapter.notifyItemRemoved(position);
-                makeText(homepage.this,getString(R.string.task_deleted), LENGTH_SHORT).show();
+                taskAdapter.notifyItemRemoved(position);
+
                 if (taskList.isEmpty()) {
                     emptyView.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.GONE);
                 }
-
             }
         };
 
-
-
-
         new ItemTouchHelper(simpleCallback).attachToRecyclerView(recyclerView);
-
     }
 
-
     private void setupBottomNavbar(String currentPage) {
-        ImageView home = findViewById(R.id.menuButton);
-        ImageView calendar = findViewById(R.id.calenderButton);
-        ImageView add = findViewById(R.id.addbutton);
-        ImageView track = findViewById(R.id.trackbutton);
-        ImageView setting = findViewById(R.id.settingbutton);
+        home = findViewById(R.id.menuButton);
+        calender = findViewById(R.id.calenderButton);
+        add = findViewById(R.id.addbutton);
+        track = findViewById(R.id.trackbutton);
+        setting = findViewById(R.id.settingbutton);
 
-        // Reset all to default icons
         home.setImageResource(R.drawable.home);
-        calendar.setImageResource(R.drawable.calender);
+        calender.setImageResource(R.drawable.calender);
         add.setImageResource(R.drawable.add);
         track.setImageResource(R.drawable.completion);
         setting.setImageResource(R.drawable.setting);
 
-        // Highlight current icon
         switch (currentPage) {
             case "home":
                 home.setImageResource(R.drawable.home_filled);
                 break;
             case "calendar":
-                calendar.setImageResource(R.drawable.calender_filled);
+                calender.setImageResource(R.drawable.calender_filled);
                 break;
             case "add":
                 add.setImageResource(R.drawable.add_filled);
@@ -122,52 +143,43 @@ public class homepage extends AppCompatActivity {
                 break;
         }
 
-
         home.setOnClickListener(v -> {
-            if (!currentPage.equals("home")) {
-                startActivity(new Intent(this, homepage.class));
-                loadFragment(new HomeFragment());
-                finish();
-            }
         });
 
-        calendar.setOnClickListener(v -> {
-
+        calender.setOnClickListener(v -> {
             if (!currentPage.equals("calendar")) {
-                startActivity(new Intent(this, calenderPage.class));
-
-                finish();
+                Intent intent = new Intent(this, calenderPage.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
             }
         });
 
         add.setOnClickListener(v -> {
-
             if (!currentPage.equals("add")) {
-                startActivity(new Intent(this, addPage.class));
-
-                finish();
-
+                Intent intent = new Intent(this, addPage.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
             }
         });
 
         track.setOnClickListener(v -> {
             if (!currentPage.equals("track")) {
-                startActivity(new Intent(this, trackPage.class));
-                finish();
+                Intent intent = new Intent(this, trackPage.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
             }
         });
 
         setting.setOnClickListener(v -> {
             if (!currentPage.equals("setting")) {
-                startActivity(new Intent(this, SettingPage.class));
-                finish();
+                Intent intent = new Intent(this, SettingPage.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
             }
         });
-    }
-    private void loadFragment(Fragment fragment) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .commit();
     }
 }

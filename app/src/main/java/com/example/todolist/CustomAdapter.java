@@ -20,7 +20,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         public ViewHolder(View view) {
             super(view);
             detail = view.findViewById(R.id.detail);
-            task_name = view.findViewById(R.id.task_name);
+            task_name = view.findViewById(R.id.Category_name);
         }
 
         public void bind(task item) {

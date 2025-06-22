@@ -17,4 +17,7 @@ public interface TaskDao {
 
     @Query("SELECT * FROM tasks")
     List<task> getAllTasks();
+    @Query("SELECT * FROM tasks WHERE category = :categoryName")
+    List<task> getTasksByCategory(String categoryName);
+
 }

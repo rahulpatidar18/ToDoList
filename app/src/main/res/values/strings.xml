@@ -13,4 +13,17 @@
     <string name="add">add</string>
     <string name="completion">completion</string>
     <string name="setting">setting</string>
-</resources>
+    <string name="category">Category</string>
+
+
+        <!-- Category dropdown options -->
+        <string-array name="task_categories">
+            <item>Work</item>
+            <item>Personal</item>
+            <item>Study</item>
+            <item>Shopping</item>
+            <item>Fitness</item>
+        </string-array>
+    </resources>
+
+
